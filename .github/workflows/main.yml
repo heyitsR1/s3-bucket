@@ -1,22 +1,17 @@
-name: Upload Website
+name: AWS Region Test
 
-on:
-  push:
-    branches:
-    - main
+on: [push]
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-    - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./public/ s3://test-bucket-april-22-2025 --delete
+      - uses: actions/checkout@v2
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "us-east-1"
+      - name: Check identity
+        run: aws sts get-caller-identity
