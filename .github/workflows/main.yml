@@ -18,4 +18,4 @@ jobs:
       # - name: Upload to S3
       #   run: aws s3 cp my-folder/ s3://test-bucket-april-22-2025/ --recursive
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./public/ s3:/test-bucket-april-22-2025/ --delete
+        run: aws s3 sync ./public/ s3:/test-bucket-april-22-2025 --delete
